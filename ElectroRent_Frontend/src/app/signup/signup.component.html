@@ -1,0 +1,115 @@
+<style>
+    .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.signup-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.form-container {
+  padding: 40px;
+  
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  color: #555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.signup-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #555;
+  }
+  
+  .signup-link a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  h2{
+    font-family: 'Ubuntu', sans-serif;
+    color: #45a049;
+    font-size: 30px;
+  }
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+  </style>
+<div class="container">
+    <div class="signup-container">
+      <div class="form-container">
+        <h2>Create Account</h2>
+        <form (ngSubmit)="onSubmit()" ngNativeValidate>
+          <div class="form-group">
+            <label for="name"></label>
+            <input type="text" id="name" name="name" [(ngModel)]="user.name" required placeholder="Name">
+          </div>
+          <div class="form-group">
+            <label for="email"></label>
+            <input type="email" id="email" name="email" [(ngModel)]="user.email" required placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="contactNumber"></label>
+            <input type="text" id="contactNumber" name="contactNumber" [(ngModel)]="user.contactNumber" required placeholder="Contact">
+          </div>
+          <div class="form-group">
+            <label for="password"></label>
+            <input type="password" id="password" name="password" [(ngModel)]="user.password" required placeholder="Password">
+          </div>
+          <div class="form-group">
+            <button type="submit">Signup</button>
+          </div>
+          <div class="signup-link">
+            Already have an account? <a routerLink="/login">Login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

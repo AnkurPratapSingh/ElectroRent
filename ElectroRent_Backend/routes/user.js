@@ -20,6 +20,7 @@ router.post('/signup',(req,res)=>{
               query =  "insert into user(name,contactNumber,email,password,status,role) values (?,?,?,?,'false','user');"
               connection.query(query,[user.name,user.contactNumber,user.email,user.password],(err,result)=>{
                 if(!err){
+                    console.log("great")
                     return res.status(200).json({message:"Successfully Registered"});
                 }
                 else{

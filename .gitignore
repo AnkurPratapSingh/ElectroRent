@@ -1,2 +1,27 @@
 ElectroRent_Backend/node_modules/
 ElectroRent_Backend/generated_pdf/
+
+ElectroRent_Frontend/node_modules/
+ElectroRent_Frontend/generated_pdf
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+ElectroRent_Frontend/dist
+ElectroRent_Frontend/tmp
+ElectroRent_Frontend/out-tsc
+ElectroRent_Frontend/bazel-out
+
+# Node
+/node_modules
+ElectroRent_Frontend/npm-debug.log
+ElectroRent_Frontend/yarn-error.log
+
+
+ElectroRent_Frontend/connect.lock
+ElectroRent_Frontend/coverage
+ElectroRent_Frontend/libpeerconnection.log
+ElectroRent_Frontend/testem.log
+ElectroRent_Frontend/typings
+
+
