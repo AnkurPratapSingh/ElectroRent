@@ -11,12 +11,12 @@ const auth = require("../services/authentication");
 const { log } = require('console');
 
 
-router.post('/generateReport', auth.authenticationToken,(req,res)=>{
+router.post('/generateReport', (req,res)=>{
     const generateUuid = uuid.v1();
     const orderDetails = req.body;
     var productDetailsReport = JSON.parse(orderDetails.productDetails);
    var query = "insert into bill (name ,uuid,email,contactNumber,paymentMethod,total,productDetails,createdBy) values (?,?,?,?,?,?,?,?)" ;
-   connection.query(query,[orderDetails.name,generateUuid,orderDetails.email,orderDetails.contactNumber,orderDetails.paymentMethod,orderDetails.totalAmount,orderDetails.productDetails,res.locals.email],(err,result)=>{
+   connection.query(query,[orderDetails.name,generateUuid,orderDetails.email,orderDetails.contactNumber,orderDetails.paymentMethod,orderDetails.totalAmount,orderDetails.productDetails,orderDetails.email],(err,result)=>{
     if(!err){
         ejs.renderFile(path.join(__dirname,"report.ejs"),{productDetails:productDetailsReport,name:orderDetails.name,email:orderDetails.email,contactNumber:orderDetails.contactNumber,paymentMethod:orderDetails.paymentMethod,totalAmount:orderDetails.totalAmount},(err,result)=>{
                     
@@ -53,9 +53,12 @@ router.post('/generateReport', auth.authenticationToken,(req,res)=>{
    });
 })
 
-router.get('/getPdf',auth.authenticationToken,(req,res)=>{
+router.get('/getPdf',(req,res)=>{
     const orderDetails = req.body;
-    const pdfPath = './generated_pdf/'+orderDetails.uuid+'.pdf';
+    const uuid = req.query.uuid;
+
+    console.log(orderDetails);
+    const pdfPath = './generated_pdf/'+uuid+'.pdf';
     if(fs.existsSync(pdfPath)){
         res.contentType('application/pdf');
         fs.createReadStream(pdfPath).pipe(res);

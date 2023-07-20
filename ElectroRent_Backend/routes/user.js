@@ -9,8 +9,11 @@ var auth = require('../services/authentication');
 var checkRole = require('../services/checkRole')
 
 
+
 router.post('/signup',(req,res)=>{
     let user = req.body;
+  //  console.log(user);
+
     query = "select email,password,role,status from user where email=?"
     connection.query(query,[user.email],(err,result)=>{
         if(!err){
@@ -21,6 +24,12 @@ router.post('/signup',(req,res)=>{
               connection.query(query,[user.name,user.contactNumber,user.email,user.password],(err,result)=>{
                 if(!err){
                     console.log("great")
+                    const id = result.insertId;
+                    const token = jwt.sign({id:id},process.env.ACCESS_TOKEN)
+                    res.cookie("jwt",token,{
+                        httpOnly:true,
+                        maxAge:24*60*60*1000
+                    })
                     return res.status(200).json({message:"Successfully Registered"});
                 }
                 else{
@@ -43,9 +52,11 @@ router.post('/signup',(req,res)=>{
 
 router.post('/login',(req,res)=>{
     const user = req.body;
-    query = "select email,password,role,status from user where email=?"
+    console.log(user);
+    query = "select id ,email,password,role,status from user where email=?"
     connection.query(query,[user.email],(err,result)=>{
         console.log(result)
+        const userData = result[0];
         if(!err){
             if(result.length<=0 || result[0].password!=user.password)
             {
@@ -58,8 +69,14 @@ router.post('/login',(req,res)=>{
             else if(result[0].password==user.password){
                  
                 const response = {email:result[0].email, role:result[0].role}
-                const accessToken = jwt.sign(response,process.env.ACCESS_TOKEN,{expiresIn:'1h'})
-                res.status(200).json({token:accessToken})
+                const token = jwt.sign(result[0].id,process.env.ACCESS_TOKEN)
+                res.cookie("jwt",token,{
+                    httpOnly:true,
+                    maxAge:24*60*60*1000 
+                })
+
+                
+                res.status(200).json({message:"success"})
             }
             else{
                 return res.status(500).json({message:"Something went wrong try again"});
@@ -71,6 +88,11 @@ router.post('/login',(req,res)=>{
         }
 })})
 
+
+router.post('/logout',(req,res)=>{
+     res.cookie("jwt","",{maxAge:0})
+     res.send({message:"success"})
+})
 
 var transporter = nodeMailer.createTransport({
     service:'gmail',
@@ -132,6 +154,47 @@ var transporter = nodeMailer.createTransport({
 
     })
 
+    router.get("/check",(req,res)=>{
+        try{
+        const cookie = req.cookies['jwt']
+        const claims = jwt.verify(cookie,process.env.ACCESS_TOKEN)
+        var userId;
+       if(claims.id == undefined)
+          userId = claims;
+        else
+          userId = claims.id;
+        console.log(userId,"claims");
+        if(!claims)return res.status(401).json({message:'unauthenticated'})
+
+
+        var query = "select * from user where id = ?";
+        connection.query(query,[userId],(err,result)=>{
+            const userData = result[0];
+          //delete userData.password
+          console.log(1234);
+         console.log(userData)
+         console.log(1234);
+             return res.status(200).json(userData);   
+
+        })
+        
+        }
+        catch(err){
+            return res.status(401).json({message:'unauthenticated'})
+
+        }
+            // const claims = jwt.verify(cookie,ACCESS_TOKEN )
+            // if(!claims){
+            //     return res.status(401).send({
+            //         message:"unauthenticated"
+            //     })
+            // }
+            // console.log(claims)
+            // return 0;
+
+      
+    })
+
     router.patch('/update',auth.authenticationToken,checkRole.checkRole,(req,res)=>{
         let user = req.body;
         var query = "update user set status=? where id=?";
@@ -152,6 +215,7 @@ var transporter = nodeMailer.createTransport({
     router.get('/checkToken',(req,res)=>{
         return res.status(200).json({message:"true"})
     })
+   
 
 
     router.post('/changePassword',auth.authenticationToken,(req,res)=>{

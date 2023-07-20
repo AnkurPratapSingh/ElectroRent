@@ -1,8 +1,63 @@
-<nav>
+<!-- <!-- <nav>
     <ul>
       <li><a routerLink="/">Home</a></li>
       <li><a routerLink="/signup">Signup</a></li>
       <li><a routerLink="/login">Login</a></li>
     </ul>
+  </nav> -->
+
+  <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <div class="conatiner-fluid">
+      
+      <a routerLink="/" class="navbar-brand">Home</a>
+      
+      <div>
+        <ul class="navbar-nav ml-auto mb-2 mb-md-0">
+         
+          <li class="nav-item"><a routerLink="/signup" class="nav-link">Signup</a></li>
+          <li class="nav-item"><a routerLink="/login" class="nav-link">Login</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </nav> -->
+   
+   <!-- <nav class="navbar navbar-expand-lg navbar-dark">
+   
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Signup</a>
+        </li>
+      </ul>
+    </div>
+  </nav> -->
+
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-green mb-4">
+    <div class="container-fluid">
+     
+      <a routerLink="/" class="navbar-brand">Home</a>
+      <div class="ml-auto">
+        <ul class="navbar-nav" *ngIf="!authenticated">
+          <li class="nav-item"><a routerLink="/signup" class="nav-link">Signup</a></li>
+          <li class="nav-item"><a routerLink="/login" class="nav-link">Login</a></li>
+        </ul>
+
+        <ul class="navbar-nav" *ngIf="authenticated">
+          <li class="nav-item"><a routerLink="/category/get" class="nav-link">Categories</a></li>
+
+          <li class="nav-item"><a routerLink="/login" (click)="logout()" class="nav-link">Logout</a></li>
+
+        </ul>
+      </div>
+    </div>
   </nav>
-  

@@ -1,4 +1,4 @@
-nav {
+/* nav {
     background-color: #f2f2f2;
     padding: 10px;
   }
@@ -20,4 +20,28 @@ nav {
     color: #333;
     font-weight: bold;
   }
+   */
+
+   .bg-green {
+    background-color:#4CAF50;
+  }
+  .navbar-nav .nav-link {
+    color: white;
+  }
   
+
+   /* .navbar {
+    background-color: black;
+  }
+
+  .navbar-brand {
+    color: white;
+  }
+
+  .navbar-nav.ml-auto {
+    margin-left: auto;
+  }
+
+  .navbar-nav.ml-auto .nav-link {
+    color: white;
+  } */

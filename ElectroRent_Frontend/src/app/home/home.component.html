@@ -1,5 +1,7 @@
+
 <div class="container">
-    <h2>Welcome to Electronic Item Rental</h2>
+    <h2>Welcome to ElectroRent </h2>
+    <h3 *ngIf="authenticated" >{{message}}</h3>
     <p>Rent the latest electronic items for your needs.</p>
     <div class="item-list">
       <div class="item-description">
@@ -13,6 +15,123 @@
         <a routerLink="/rent/smartphone">Rent Now</a>
       </div>
       <!-- Add more item descriptions for other electronic items -->
+     
     </div>
-  </div>
-  
+
+
+
+    <!-- Skasham Design -->
+
+    <div class="product-page">
+      <div class="product-list">
+        <div class="product" *ngFor="let product of products" >
+          <img src={{product.image}} alt="Image is loading" product.image width="200px" product.image height="150px">
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="review-slider">
+      <ngx-slick-carousel [config]="carouselConfig">
+        <div class="review-item">
+          <h4>Jethalal Champaklal Gada</h4>
+          <p>"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+        </div>
+        <div class="review-item">
+          <h4>Daya tapu ke papa Gada</h4>
+          <p>"I rented a smartphone for a short trip, and it worked flawlessly. Thanks to Electronic Item Rental for the great service."</p>
+        </div>
+        
+      </ngx-slick-carousel>
+    </div> -->
+    
+   
+     
+
+    <!-- BootStrap carousal -->
+    <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="3000">
+      <h2>Our Happy Customers</h2>
+      <h5>Here's what they have to say about their ElectroRent experience.</h5>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="card-wrapper container-sm d-flex  justify-content-around">
+          <div class="card  " style="width: 18rem;">
+      <img src="../../assets/First.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title">Jethalal Champaklal Gada</h4>
+        <p class="card-text">"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+      </div>
+    </div><div class="card" style="width: 18rem;">
+      <img src="../../assets/First.jpg"class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title">Jethalal Champaklal Gada</h4>
+        <p class="card-text">"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+      </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+      <img src="../../assets/First.jpg"class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title">Jethalal Champaklal Gada</h4>
+        <p class="card-text">"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+      </div>
+    </div>
+    </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card-wrapper container-sm d-flex   justify-content-around">
+          <div class="card  " style="width: 18rem;">
+      <img src="../../assets/First.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title">Jethalal Champaklal Gada</h4>
+        <p class="card-text">"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+      </div>
+    </div><div class="card" style="width: 18rem;">
+      <img src="../../assets/First.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title">Jethalal Champaklal Gada</h4>
+        <p class="card-text">"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+      </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+      <img src="../../assets/First.jpg"class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title">Jethalal Champaklal Gada</h4>
+        <p class="card-text">"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+      </div>
+    </div>
+        </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card-wrapper container-sm d-flex  justify-content-around">
+          <div class="card " style="width: 18rem;">
+      <img src="../../assets/First.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title">Jethalal Champaklal Gada</h4>
+        <p class="card-text">"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+      </div>
+    </div>
+            <div class="card" style="width: 18rem;">
+      <img src="../../assets/First.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title">Jethalal Champaklal Gada</h4>
+        <p class="card-text">"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+      </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+      <img src="../../assets/First.jpg"class="card-img-top" alt="...">
+      <div class="card-body">
+        <h4 class="card-title">Jethalal Champaklal Gada</h4>
+        <p class="card-text">"The laptop I rented from Electronic Item Rental was fantastic. It helped me complete my work efficiently."</p>
+      </div>
+    </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+        

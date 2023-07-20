@@ -1,5 +1,9 @@
+/* styles.css (or styles.scss) */
+
+
+
 .container {
-    max-width: 900px;
+    /* max-width: 900px; */
     margin: 0 auto;
     text-align: center;
   }
@@ -49,4 +53,59 @@
   .item-description a:hover {
     background-color: #45a049;
   }
+  .card{
+    padding:0;
+    
+  }
+  
+
+  /* Saksham */
+
+  .product-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    background-color: bisque;
+  }
+  
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-gap: 20px;
+  
+  }
+  
+  .product {
+    
+    text-align: center;
+    color: brown;
+    padding: 20px;
+    margin: 10px;
+    background-color:rgb(255, 255, 255);
+    border-radius: 5px;
+    background-size: cover;
+    background-position: center;
+    color: #000000;
+    
+  }
+  .product button {
+    background-color: #45a049; 
+    color: #ffffff; 
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product button:hover {
+    background-color: #4d704e; 
+  }
+   
+  .product h2,
+  .product p,
+  .product button {
+  margin: 0;
+  }
+  
   

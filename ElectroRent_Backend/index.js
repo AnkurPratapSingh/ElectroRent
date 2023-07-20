@@ -6,10 +6,15 @@ const categoryRoute = require('./routes/category')
 const productRoute = require('./routes/product')
 const billRoute = require('./routes/bill')
 const dashboardRoute = require('./routes/dashboard')
+const cookieParser = require('cookie-parser')
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    credentials:true,
+    origin:['http://localhost:4200']
+}));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({extended:true}));
 app.use("/user",userRoute);
 app.use("/category",categoryRoute);

@@ -1,0 +1,20 @@
+<!-- product.component.html -->
+<div class="product-container">
+    <div class="product-card" *ngFor="let product of products">
+      <div class="product-image">
+        <!-- Replace 'product.imageUrl' with the actual URL of the product image -->
+        <img src="product.imageUrl" alt="Product Image">
+      </div>
+      <div class="product-details">
+        <h3>{{ product.name }}</h3>
+        <p class="description">{{ product.description }}</p>
+        <p class="price">Price: {{ product.price | currency }}</p>
+        <button >Rent it Now</button>
+
+      </div>
+    </div>
+  </div>
+  
+
+ 
+    

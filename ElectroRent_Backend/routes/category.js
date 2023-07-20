@@ -20,7 +20,7 @@ router.post('/add',auth.authenticationToken,checkRole.checkRole,(req,res,next)=>
      })
 })
 
-router.get('/get',auth.authenticationToken,(req,res)=>{
+router.get('/get',(req,res)=>{
     var query = "select * from category order by name";
     connection.query(query,(err,result)=>{
         if(!err){

@@ -1,9 +1,11 @@
+<!-- ngNativeValidate -->
+
 <style>
     .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 85vh;
   background-color: #f2f2f2;
 }
 
@@ -85,7 +87,7 @@ button[type="submit"]:hover {
     <div class="signup-container">
       <div class="form-container">
         <h2>Create Account</h2>
-        <form (ngSubmit)="onSubmit()" ngNativeValidate>
+        <form (ngSubmit)="onSubmit()" >
           <div class="form-group">
             <label for="name"></label>
             <input type="text" id="name" name="name" [(ngModel)]="user.name" required placeholder="Name">
