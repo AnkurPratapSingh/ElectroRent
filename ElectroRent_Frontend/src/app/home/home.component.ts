@@ -4,6 +4,8 @@ import { Emitters } from '../emitters/emitters';
 import { LoginComponent } from '../login/login.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { MyauthService } from '../myauth.service';
+import { Route, Router } from '@angular/router';
 
 
 
@@ -47,30 +49,15 @@ export class HomeComponent implements OnInit{
 
   
 
-  constructor(private http:HttpClient){}
+  constructor(private http:HttpClient,  private router:Router,private myauth:MyauthService){}
 
   
   ngOnInit():void{
+    if(!this.myauth.isLoggedIn){
+      this.router.navigate(['/login']);
+    return;}
     console.log("it angualr")
-     this.http.get('http://localhost:8080/user/check',{withCredentials:true})
-     .subscribe(
-      (res:any)=>{
-        console.log(res);
-        
-        this.message=`${res.name}`;
-        Emitters.authEmitter.emit(true);
-        console.log(this.message);
-        this.authenticated= true;
-        
-
-      },
-      (err)=>{
-        this.message=err;
-        Emitters.authEmitter.emit(false);
-
-        console.log(err);
-        
-      })
+    
       setInterval(() => {
         this.shuffleProducts();
       }, 500);

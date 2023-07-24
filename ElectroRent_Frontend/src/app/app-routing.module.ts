@@ -8,6 +8,10 @@ import { ProductComponent } from './product/product.component';
 import { CategoryComponent } from './category/category.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+import { AuthGuard } from './guard/auth.guard';
+import { RentNowComponent } from './rent-now/rent-now.component';
+import { CarouselSlideDirective } from 'ngx-owl-carousel-o';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -17,7 +21,9 @@ const routes: Routes = [
   {path:'category/get',component:CategoryComponent},
   {path :'category/:id',component:ProductComponent},
   {path:'contactus',component:ContactUsComponent},
-  {path:'pdfview',component:PdfViewerComponent}
+  {path:'pdfview',component:PdfViewerComponent},
+  {path:'rentnow/:id',component:RentNowComponent},
+  {path:'cartitems',component:CartComponent}
   
   
 ];

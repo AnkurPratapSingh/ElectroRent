@@ -1,0 +1,94 @@
+.cart {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f7f7f7;
+  }
+  
+  .item-image {
+    flex: 1;
+    max-width: 150px;
+    margin-right: 20px;
+  }
+  
+  .item-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .item-details {
+    flex: 2;
+  }
+  
+  .item-name {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .item-price {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .item-description {
+    margin: 5px 0;
+    color: #777;
+  }
+  
+  .item-actions {
+    flex: 1;
+    text-align: right;
+  }
+  
+  .btn-remove {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-remove:hover {
+    background-color: #45a049;
+  }
+  
+  .empty-cart {
+    text-align: center;
+    color: #777;
+    margin-top: 20px;
+  }
+  /* Previous CSS styles for the cart component... */
+
+.btn-checkout {
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+  }
+  
+  .btn-checkout:hover {
+    background-color: #45a049;
+  }
+  
+  

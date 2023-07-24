@@ -14,9 +14,10 @@ const { log } = require('console');
 router.post('/generateReport', (req,res)=>{
     const generateUuid = uuid.v1();
     const orderDetails = req.body;
-    var productDetailsReport = JSON.parse(orderDetails.productDetails);
+    console.log(orderDetails);
+    var productDetailsReport = JSON.stringify(orderDetails.productDetails);
    var query = "insert into bill (name ,uuid,email,contactNumber,paymentMethod,total,productDetails,createdBy) values (?,?,?,?,?,?,?,?)" ;
-   connection.query(query,[orderDetails.name,generateUuid,orderDetails.email,orderDetails.contactNumber,orderDetails.paymentMethod,orderDetails.totalAmount,orderDetails.productDetails,orderDetails.email],(err,result)=>{
+   connection.query(query,[orderDetails.name,generateUuid,orderDetails.email,orderDetails.contactNumber,orderDetails.paymentMethod,orderDetails.totalAmount,productDetailsReport,orderDetails.email],(err,result)=>{
     if(!err){
         ejs.renderFile(path.join(__dirname,"report.ejs"),{productDetails:productDetailsReport,name:orderDetails.name,email:orderDetails.email,contactNumber:orderDetails.contactNumber,paymentMethod:orderDetails.paymentMethod,totalAmount:orderDetails.totalAmount},(err,result)=>{
                     

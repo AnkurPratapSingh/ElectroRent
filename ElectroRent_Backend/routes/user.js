@@ -171,9 +171,9 @@ var transporter = nodeMailer.createTransport({
         connection.query(query,[userId],(err,result)=>{
             const userData = result[0];
           //delete userData.password
-          console.log(1234);
+         // console.log(1234);
          console.log(userData)
-         console.log(1234);
+         //console.log(1234);
              return res.status(200).json(userData);   
 
         })
@@ -194,6 +194,7 @@ var transporter = nodeMailer.createTransport({
 
       
     })
+    
 
     router.patch('/update',auth.authenticationToken,checkRole.checkRole,(req,res)=>{
         let user = req.body;
@@ -243,6 +244,20 @@ var transporter = nodeMailer.createTransport({
                     return res.status(400).json({message:"Something went wrong"});
                 }
             }
+            else{
+                return res.status(500).json(err);
+            }
+        })
+    })
+
+
+    router.get('/getUserById/:id',(req,res)=>{
+       
+        const id = req.params.id;
+        query = "select name,email,contactNumber from user where id=?"
+        connection.query(query,[id],(err,result)=>{
+            if(!err)
+              return res.status(200).json(result);
             else{
                 return res.status(500).json(err);
             }

@@ -11,7 +11,12 @@ create table user(
 
 insert into user(name,contactNumber,email,password,status,role) values ('Admin','123123123','admin@gmail.com','admin','true','admin');
 
-
+create table cart(
+    id int primary key AUTO_INCREMENT,
+    userid int ,
+    productid int
+    
+)
 create table category(
     id int not null AUTO_INCREMENT,
     name varchar(255) not null ,

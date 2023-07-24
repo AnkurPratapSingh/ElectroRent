@@ -4,6 +4,8 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { MyauthService } from '../myauth.service';
+
 
 
 interface Product {
@@ -25,7 +27,7 @@ export class ProductComponent implements OnInit {
     
 
    
-    constructor(private http: HttpClient, private router:Router,private ngxServices:NgxUiLoaderService ,private route: ActivatedRoute) {}
+    constructor(private myauth:MyauthService,private http: HttpClient, private router:Router,private ngxServices:NgxUiLoaderService ,private route: ActivatedRoute) {}
 
   
     ngOnInit() {
@@ -82,5 +84,28 @@ export class ProductComponent implements OnInit {
         )
         
       }
-  }
+
+      rentIt(Id:number){
+     //  this.router.navigate([`rentnow/${Id}`]);
+       const data = {userid:this.myauth.user,productid:Id};
+
+        this.http.post('http://localhost:8080/add/addtocart', data,{withCredentials:true})
+        .subscribe(
+          (response) => {
+            this.ngxServices.stop();
+           Swal.fire("Success","Product added to cart");
+  
+            console.log(response);
+            
+          },
+          (error) => {
+            this.ngxServices.stop();
+             
+          }
+        )
+            // Handle error, e.g., display an error message
+          }
+        
+      }
+  
 

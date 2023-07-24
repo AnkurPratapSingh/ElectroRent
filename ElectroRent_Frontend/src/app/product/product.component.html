@@ -9,7 +9,7 @@
         <h3>{{ product.name }}</h3>
         <p class="description">{{ product.description }}</p>
         <p class="price">Price: {{ product.price | currency }}</p>
-        <button >Rent it Now</button>
+        <button (click)="rentIt(product.id)" >Rent it Now</button>
 
       </div>
     </div>

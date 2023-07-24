@@ -4,6 +4,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Emitters } from '../emitters/emitters';
+import { MyauthService } from '../myauth.service';
 
 
 interface Product {
@@ -22,19 +23,33 @@ export class CategoryComponent implements OnInit {
 
   products: Product[] = [];
   authenticated :boolean=false;
-  constructor(private http: HttpClient, private router:Router,private ngxServices:NgxUiLoaderService ) {}
+  constructor(private http: HttpClient, private router:Router,private ngxServices:NgxUiLoaderService, private myauth:MyauthService ) {}
 
 
   ngOnInit() {
     // Replace this with actual data fetched from the backend
 
-    Emitters.authEmitter.subscribe((auth:boolean,msg:any)=>{
-      this.authenticated = auth;
-  })
-  if(this.authenticated == false)
-  {
+  //   Emitters.authEmitter.subscribe((auth:boolean,msg:any)=>{
+  //     this.authenticated = auth;
+  // })
+  // if(this.authenticated == false)
+  // {
+  //   this.router.navigate(['/login']);
+  // }
+ 
+  // this.myauth.isLoggedIn.subscribe((isLoggedIn) => {
+  //   this.authenticated = isLoggedIn;
+  //   // Do whatever you want with the new isLoggedIn value
+  // });
+
+  if(!this.myauth.getUserStatus()){
     this.router.navigate(['/login']);
+    return;
   }
+  // if(!this.authenticated){
+  //   this.router.navigate(['/login']);
+  //   return;
+  //   } 
     this.http.get<Product[]>('http://localhost:8080/category/get',{withCredentials:true})
     .subscribe(
       (data) => {
@@ -61,5 +76,8 @@ export class CategoryComponent implements OnInit {
     // Replace '/category' with the actual route path for the category page.
     // For example, if your category page route is '/category/:id', use ['/category', categoryId]
   }
+
+
+
 }
 

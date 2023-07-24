@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MyauthService } from '../myauth.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginComponent {
     password: ''
   };
   responseMessage: any;
-  constructor(private http: HttpClient, private router:Router,private ngxServices:NgxUiLoaderService ) {}
+  constructor(private http: HttpClient, private router:Router,private ngxServices:NgxUiLoaderService, private myauth:MyauthService ) {}
   
   validateEmail(email:any){
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -46,6 +47,7 @@ export class LoginComponent {
       .subscribe(
         (response) => {
           this.ngxServices.stop();
+          this.myauth.login();
 
           console.log(response);
           this.router.navigate(['/']);

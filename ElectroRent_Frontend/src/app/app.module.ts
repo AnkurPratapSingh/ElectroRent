@@ -17,6 +17,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+import { RentNowComponent } from './rent-now/rent-now.component';
+import { CartComponent } from './cart/cart.component';
 
 
 
@@ -46,6 +48,8 @@ const NgxUiLoaderConfig: NgxUiLoaderConfig ={
     CategoryComponent,
     ContactUsComponent,
     PdfViewerComponent,
+    RentNowComponent,
+    CartComponent,
     
   ],
   imports: [
