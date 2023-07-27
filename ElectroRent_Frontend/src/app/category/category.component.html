@@ -14,8 +14,8 @@
       </div>
     </div>
   -->
-
-  <button *ngIf="admin" (click)="addCategory()" class="addCategory"> Add Categories</button>
+<div class="addCategoryButton">  <button *ngIf="admin" (click)="addCategory()" class="addCategory"> Add Categories</button>
+</div>
 
     <div class="product-container">
       <div class="product-card" *ngFor="let product of products">
@@ -28,6 +28,8 @@
           <p class="description">{{ product.description }}</p>
           <p class="price">Price: {{ product.price | currency }}</p>
           <button class="go-to-category-btn" (click)="goToCategory(product.id)">Go to Category</button>
+          <button class="go-to-category-btn" (click)="deleteCategory(product.id)">Delete</button>
+
         </div>
       </div>
     </div>

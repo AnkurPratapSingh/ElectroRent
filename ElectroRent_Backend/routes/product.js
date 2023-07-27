@@ -5,15 +5,17 @@ const router = express.Router();
 const auth = require("../services/authentication")
 const checkRole = require("../services/checkRole")
 
-router.post('/add',auth.authenticationToken,checkRole.checkRole,(req,res,next)=>{
+router.post('/add',(req,res,next)=>{
     let product = req.body;
+    console.log(product);
     var query = "insert into product (name , categoryId,description,price, status) values (?,?,?,?,'true')" //true for product active default
-    connection.query(query,[product.name,product.categoryId,product.description,product.price],(err,result)=>{
+    connection.query(query,[product.name,product.id,product.description,product.price],(err,result)=>{
         if(!err){
            return res.status(200).json({message:"product added succesfully"});
 
         }
         else{
+            console.log("Not adeed ");
             return res.status(500).json(err);
         }
     })
@@ -88,7 +90,7 @@ router.get('/getById/:id',auth.authenticationToken,(req,res,next)=>{
     })
  })
 
- router.delete('/delete/:id',auth.authenticationToken,checkRole.checkRole,(req,res,next)=>{
+ router.delete('/delete/:id',(req,res,next)=>{
     let id = req.params.id;
     var query = "delete from product where id=?";
     connection.query(query,[id],(err,result)=>{

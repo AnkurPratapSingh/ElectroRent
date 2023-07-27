@@ -69,14 +69,17 @@ router.post('/login',(req,res)=>{
             else if(result[0].password==user.password){
                  
                 const response = {email:result[0].email, role:result[0].role}
-                const token = jwt.sign(result[0].id,process.env.ACCESS_TOKEN)
-                res.cookie("jwt",token,{
-                    httpOnly:true,
-                    maxAge:24*60*60*1000 
-                })
+                const token  = jwt.sign(result[0].id,process.env.ACCESS_TOKEN)
+                // res.cookie("jwt",token1,{
+                //     httpOnly:true,
+                //     maxAge:24*60*60*1000 
+                // })
+              //  const token = jwt.sign(process.env.ACCESS_TOKEN, process.env.ACCESS_TOKEN);
+
+                 res.json({ token });
 
                 
-                res.status(200).json({message:"success"})
+                //res.status(200).json({message:"success"})
             }
             else{
                 return res.status(500).json({message:"Something went wrong try again"});
@@ -156,8 +159,11 @@ var transporter = nodeMailer.createTransport({
 
     router.get("/check",(req,res)=>{
         try{
-        const cookie = req.cookies['jwt']
-        const claims = jwt.verify(cookie,process.env.ACCESS_TOKEN)
+    
+        const token = req.header('Authorization').replace('Bearer ', ''); // Get the JWT from the 'Authorization' header
+          console.log(token);
+        const claims = jwt.verify(token,process.env.ACCESS_TOKEN)
+        console.log("this is for admin",claims);
         var userId;
        if(claims.id == undefined)
           userId = claims;

@@ -22,10 +22,10 @@ export class NavbarComponent {
   ngOnInit():void{
    // console.log(this.authenticated);
    // this.role=this.myauth.getUserRole() || ''
-    console.log(this.role);
     
     // this.authenticated = this.myauth.isLoggedIn;
     this.myauth.isLoggedIn.subscribe((isLoggedIn: boolean) => {
+      
       this.authenticated = isLoggedIn;
     //  this.admin=isAdmin;
       // Do whatever you want with the new isLoggedIn value
@@ -33,6 +33,8 @@ export class NavbarComponent {
     this.myauth.isAdmin.subscribe((isAdmin)=>{
          this.admin = isAdmin
     })
+    console.log("isAdmin",this.admin);
+    
     // this.role = localStorage.getItem('role') || '';
 
     // // Set the role in the SharedService
@@ -51,11 +53,6 @@ export class NavbarComponent {
  
   }
  
-  reloadNavbar(){
-   // this.authenticated = this.authService.isAuthenticated();
- // this.role = this.myauth.getUserRole()||'';
-  console.log(this.role)
-  }
   
 
   logout():void{

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Emitters } from '../emitters/emitters';
 import { MyauthService } from '../myauth.service';
+import { Title } from '@angular/platform-browser';
 //import Swal from 'sweetalert2';
 
 
@@ -47,8 +48,14 @@ export class CategoryComponent implements OnInit {
   //   this.authenticated = isLoggedIn;
   //   // Do whatever you want with the new isLoggedIn value
   // });
+  this.myauth.isLoggedIn.subscribe((isLoggedIn: boolean) => {
+      
+    this.authenticated = isLoggedIn;
+  //  this.admin=isAdmin;
+    // Do whatever you want with the new isLoggedIn value
+  });
 
-  if(!this.myauth.getUserStatus()){
+  if(!this.authenticated){
     this.router.navigate(['/login']);
     return;
   }
@@ -84,7 +91,10 @@ export class CategoryComponent implements OnInit {
   })
   
   if (category) {
-    Swal.fire(`Your Category ${category} is added`)
+    Swal.fire({
+      title:'Success',
+      confirmButtonColor:'#4CAF50'
+  })
   }
   const categoryData = {name:category} 
   this.http.post('http://localhost:8080/category/add',categoryData).subscribe((response)=>{
@@ -109,5 +119,22 @@ export class CategoryComponent implements OnInit {
       }
     )
   }
-}
+  deleteCategory(id:number){
+           
+    this.http
+    .delete(`http://localhost:8080/category/delete/${id}`,)
+    .subscribe(
+      (response) => {
+        console.log('del the categoryyyyyy');
+        this.dbCall();
+    
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+  }
+  }
+
 

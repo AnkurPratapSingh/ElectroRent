@@ -45,5 +45,36 @@ router.patch('/update',auth.authenticationToken,checkRole.checkRole,(req,res,nex
         }
     })
 })
+router.delete('/delete/:id',(req,res,next)=>{
+    let id = req.params.id;
+    var query = "delete from category where id=?";
+    connection.query(query,[id],(err,result)=>{
+          if(!err){
+              if(result.affectedRows==0)
+                 return res.status(404).json({message:"Category Id does not found"});
+              else{
+                 console.log("Delete product");
+                var query = "delete from product where categoryid=?";
+                connection.query(query,[id],(err,result)=>{
+                      if(!err){
+                          
+                             return res.status(200).json({message:"Product and categoryis succesfully deleted"})
+            
+                      }
+                      else{
+            
+                        return res.status(500).json(err);
+             
+                      }
+                })
+                 
+          }
+        }
+          else{
 
+            return res.status(500).json(err);
+ 
+          }
+    })
+ })
 module.exports = router;

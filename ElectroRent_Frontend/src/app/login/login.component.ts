@@ -18,6 +18,7 @@ export class LoginComponent {
     password: ''
   };
   responseMessage: any;
+  token:string=''
   constructor(private http: HttpClient, private router:Router,private ngxServices:NgxUiLoaderService, private myauth:MyauthService ) {}
   
   validateEmail(email:any){
@@ -56,10 +57,12 @@ export class LoginComponent {
 
     console.log('Login form submitted');
     console.log('User:', this.user);
-    this.http.post('http://localhost:8080/user/login', this.user,{withCredentials:true})
+    this.http.post<any>('http://localhost:8080/user/login', this.user,{withCredentials:true})
       .subscribe(
         (response) => {
           this.ngxServices.stop();
+         // this.token=response.token;
+             localStorage.setItem('token', response.token);
           this.myauth.login();
 
           console.log(response);

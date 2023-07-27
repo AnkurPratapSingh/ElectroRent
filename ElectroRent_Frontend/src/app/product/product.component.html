@@ -1,5 +1,37 @@
 <!-- product.component.html -->
+<div class="addProduct">
+<button *ngIf = 'admin' (click)="openPopupForm()">Add Product</button>
+</div>
 <div class="product-container">
+  
+  <!-- product.component.html -->
+<div class="overlay" [ngClass]="{ 'hidden': !isPopupFormVisible }">
+  <div class="popup-form" [ngClass]="{ 'hidden': !isPopupFormVisible }">
+    <h2>Add Product</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name"></label>
+        <input type="text" id="name" name="name" required placeholder="Product Name" [(ngModel)]="formData.name">
+      </div>
+      <div class="form-group">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" required [(ngModel)]="formData.id" [readonly]="true">
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required [(ngModel)]="formData.price">
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required [(ngModel)]="formData.description"></textarea>
+      </div>
+      <button type="submit" style="margin-right: 5px;">Add</button>
+      <button type="button" (click)="closePopupForm()">Cancel</button>
+    </form>
+  </div>
+</div>
+
+ 
     <div class="product-card" *ngFor="let product of products">
       <div class="product-image">
         <!-- Replace 'product.imageUrl' with the actual URL of the product image -->
@@ -9,7 +41,9 @@
         <h3>{{ product.name }}</h3>
         <p class="description">{{ product.description }}</p>
         <p class="price">Price: {{ product.price }}</p>
-        <button (click)="rentIt(product.id)" >Rent it Now</button>
+        <button *ngIf = '!admin' (click)="rentIt(product.id)" >Rent it Now</button>
+        <button *ngIf = 'admin' (click)="deleteProduct(product.id)">Delete</button>
+
 
       </div>
     </div>

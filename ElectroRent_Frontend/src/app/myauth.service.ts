@@ -37,8 +37,9 @@
 // }
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,8 @@ import { BehaviorSubject } from 'rxjs';
 export class MyauthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   private isAdminSubject = new BehaviorSubject<boolean>(false);
+  public jwtHelper: JwtHelperService = new JwtHelperService();
+
 
 
   constructor(private http: HttpClient) {
@@ -61,12 +64,19 @@ export class MyauthService {
   role:any =null;
 
   async login() {
+    const jwtToken = this.getToken();
+
+    // Set the request headers with the JWT
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${jwtToken}`,
+    });
     this.http
-      .get('http://localhost:8080/user/check', { withCredentials: true })
+      .get('http://localhost:8080/user/check', {headers})
       .subscribe(
         (res: any) => {
           console.log(res.id,"ye hai service");
           console.log(res);
+         
           
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("user", res.id);
@@ -77,8 +87,8 @@ export class MyauthService {
           
           // console.log(typeof(this.user));
           
-          this.isLoggedInSubject.next(true); // Notify subscribers about the login status change
-          this.isAdminSubject.next(localStorage.getItem('role')==='admin');
+          this.isLoggedInSubject.next(this.isAuthenticated()); // Notify subscribers about the login status change
+          this.isAdminSubject.next(this.getUserRole());
         },
         (err) => {
           console.log(err);
@@ -90,21 +100,48 @@ export class MyauthService {
     this.isLoggedInSubject.next(false); 
     this.isAdminSubject.next(false)// Notify subscribers about the logout status change
     this.user = null;
-    localStorage.setItem("isLoggedIn", "false");
+    //localStorage.setItem("isLoggedIn", "false");
     localStorage.setItem("user", "0");
-    localStorage.setItem("role","");
+   // localStorage.setItem("role","");
     localStorage.setItem("isPageLoaded","false")
   }
 
   getUserStatus(){
-    return localStorage.getItem("isLoggedIn")==="true";
+    return this.isAuthenticated();
   }
+ getToken(){
+  //console.log(localStorage.getItem("jwt"));
+  
+  return localStorage.getItem("token");
 
+ }
   getUserId(){
    return this.user = parseInt(localStorage.getItem("user") || '0');
   }
   getUserRole(){
-    return localStorage.getItem("role")==="admin";
+    return this.checkUserRole()==="admin";
+  }
+  checkUserRole(): string | null {
+    const token = this.getToken();
+ console.log(token);
+ 
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      console.log("role of the user",decodedToken)
+      return decodedToken.role; // Assuming the role information is stored in the 'role' claim of the JWT
+    }
+
+    return '';
+  }
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+   console.log(token);
+   
+    if (token) {
+      return true
+    }
+
+    return false;
   }
 }
 
