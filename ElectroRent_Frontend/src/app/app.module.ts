@@ -19,6 +19,10 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { RentNowComponent } from './rent-now/rent-now.component';
 import { CartComponent } from './cart/cart.component';
+import { SharedService } from './services/shared.services';
+import { FooterComponent } from './footer/footer.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 
 
@@ -50,6 +54,9 @@ const NgxUiLoaderConfig: NgxUiLoaderConfig ={
     PdfViewerComponent,
     RentNowComponent,
     CartComponent,
+    FooterComponent,
+    AboutusComponent,
+    UserDashboardComponent,
     
   ],
   imports: [
@@ -61,7 +68,10 @@ const NgxUiLoaderConfig: NgxUiLoaderConfig ={
     SlickCarouselModule,
     CarouselModule
   ],
-  providers: [],
+ 
+  providers: [
+    SharedService // Add the SharedService to the providers array
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

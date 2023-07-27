@@ -45,24 +45,32 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MyauthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
+
 
   constructor(private http: HttpClient) {
     this.isLoggedInSubject.next(this.getUserStatus());
+    this.isAdminSubject.next(this.getUserRole())
   }
 
 
   isLoggedIn = this.isLoggedInSubject.asObservable();
+  isAdmin = this.isAdminSubject.asObservable();
 
   user: any = null;
+  role:any =null;
 
-  login() {
+  async login() {
     this.http
       .get('http://localhost:8080/user/check', { withCredentials: true })
       .subscribe(
         (res: any) => {
           console.log(res.id,"ye hai service");
+          console.log(res);
+          
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("user", res.id);
+          localStorage.setItem("role",res.role);
           
           this.user = parseInt(localStorage.getItem("user") || '0');
           // console.log("user type");
@@ -70,6 +78,7 @@ export class MyauthService {
           // console.log(typeof(this.user));
           
           this.isLoggedInSubject.next(true); // Notify subscribers about the login status change
+          this.isAdminSubject.next(localStorage.getItem('role')==='admin');
         },
         (err) => {
           console.log(err);
@@ -78,10 +87,13 @@ export class MyauthService {
   }
 
   logout() {
-    this.isLoggedInSubject.next(false); // Notify subscribers about the logout status change
+    this.isLoggedInSubject.next(false); 
+    this.isAdminSubject.next(false)// Notify subscribers about the logout status change
     this.user = null;
     localStorage.setItem("isLoggedIn", "false");
     localStorage.setItem("user", "0");
+    localStorage.setItem("role","");
+    localStorage.setItem("isPageLoaded","false")
   }
 
   getUserStatus(){
@@ -89,7 +101,10 @@ export class MyauthService {
   }
 
   getUserId(){
-    this.user = parseInt(localStorage.getItem("user") || '0');
+   return this.user = parseInt(localStorage.getItem("user") || '0');
+  }
+  getUserRole(){
+    return localStorage.getItem("role")==="admin";
   }
 }
 

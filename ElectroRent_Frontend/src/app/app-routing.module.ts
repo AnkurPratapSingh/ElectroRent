@@ -12,6 +12,8 @@ import { AuthGuard } from './guard/auth.guard';
 import { RentNowComponent } from './rent-now/rent-now.component';
 import { CarouselSlideDirective } from 'ngx-owl-carousel-o';
 import { CartComponent } from './cart/cart.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -23,7 +25,9 @@ const routes: Routes = [
   {path:'contactus',component:ContactUsComponent},
   {path:'pdfview',component:PdfViewerComponent},
   {path:'rentnow/:id',component:RentNowComponent},
-  {path:'cartitems',component:CartComponent}
+  {path:'cartitems',component:CartComponent},
+  {path:'aboutus',component:AboutusComponent},
+  {path:'dashboard',component:UserDashboardComponent}
   
   
 ];

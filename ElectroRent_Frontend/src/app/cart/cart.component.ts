@@ -11,6 +11,7 @@ interface CartItem {
   name: string;
   description: string;
   price: number;
+  cartId:number;
 }
 
 interface userData{
@@ -76,7 +77,9 @@ export class CartComponent implements OnInit {
     if (index !== -1) {
       this.cartItems.splice(index, 1);
 
-      this.http.delete(`http://localhost:8080/add/deleteCartItem/${item.id}`).subscribe(
+      console.log("itme id",item.cartId)
+
+      this.http.delete(`http://localhost:8080/add/deleteCartItem/${item.cartId}`).subscribe(
         (res)=>{
           console.log("Deleted cart item");
         },
@@ -97,7 +100,8 @@ export class CartComponent implements OnInit {
       paymentMethod: 'Credit Card',
       totalAmount: 100.0,
       productDetails: [{"name": "Product 1", "price": 50.0}, {"name": "Product 2", "price": 50.0}]
-      ,createdBy:'Ankur'
+      ,createdBy:'Ankur',
+      userid:this.userid
     };
     this.http.get<userData[]>(`http://localhost:8080/user/getUserById/${this.userid}`).subscribe(
       (response) => {

@@ -75,6 +75,7 @@ export class SignupComponent {
           this.ngxServices.stop();
 
           console.log(response);
+          
           this.router.navigate(['/']);
           // Handle success, e.g., redirect to another page
         },

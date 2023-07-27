@@ -24,7 +24,7 @@ interface Product {
 export class ProductComponent implements OnInit {
 
     products: Product[] = [];
-    
+    admin:boolean =false;
 
    
     constructor(private myauth:MyauthService,private http: HttpClient, private router:Router,private ngxServices:NgxUiLoaderService ,private route: ActivatedRoute) {}
@@ -40,8 +40,16 @@ export class ProductComponent implements OnInit {
       //   },
       //   (error) => {
       //     console.error('Error fetching products:', error);
+      this.myauth.isAdmin.subscribe((isAdmin)=>{
+        this.admin = isAdmin
+   })
+   
+  
       //   }
-
+      if(!this.myauth.getUserStatus()){
+        this.router.navigate(['/login']);
+        return;
+      }
       this.route.params.subscribe(params => {
         const categoryId = +params['id'];
         // Fetch the category data based on the categoryId (Replace with your actual API call)

@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
     <head>
         <style>
             table{
@@ -56,4 +56,131 @@
 
         <h3>Thankyou for renting from us</h3>
     </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ElectroRent Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            font-size: 10px;
+         /* background-image: url('https://ibb.co/xqQ8mLz'); */
+            /* background-repeat: no-repeat;
+            background-size: cover; */
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            margin-bottom: 20px;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-container th,
+        .table-container td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+
+        .table-container th {
+            background-color: #f2f2f2;
+        }
+
+        /* Set a maximum width for the email column */
+        .email-column {
+            max-width: 200px;
+        }
+
+        .total-amount {
+            text-align: right;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .logo {
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>ElectroRent</h2>
+        </div>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Name:</th>
+                    <td><%= name %></td>
+                    <th>Email:</th>
+                    <td class="email-column"><%= email %></td>
+                </tr>
+                <tr>
+                    <th>Contact Number:</th>
+                    <td><%= contactNumber %></td>
+                    <th>Payment Method:</th>
+                    <td><%= paymentMethod %></td>
+                </tr>
+            </table>
+        </div>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <!-- <th>Category</th> -->
+                    <!-- <th>Quantity</th> -->
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+                <% if (productDetails.length > 0) { %>
+                    <% productDetails.forEach(product => { %>
+                        <tr>
+                            <td><%= product.name %></td>
+                            <!-- <td><%= product.category %></td> -->
+                            <!-- <td><%= product.quantity %></td> -->
+                            <td><%= product.price %></td>
+                            <td><%= product.total %></td>
+                        </tr>
+                    <% }); %>
+                <% } %>
+            </table>
+        </div>
+        <div class="total-amount">
+            <h3>Total : <%= totalAmount %></h3>
+        </div>
+        <div class="logo-container">
+            <img class="logo" src="https://i.ibb.co/X82Chr5/ERLogo.png" alt="Logo">
+        </div>
+        <div class="footer">
+            <h3>Thank you for renting from us</h3>
+        </div>
+    </div>
+</body>
 </html>
+<!-- <a href="https://imgbb.com/"><img src="https://i.ibb.co/X82Chr5/ERLogo.png" alt="ERLogo" border="0"></a> -->

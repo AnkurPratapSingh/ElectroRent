@@ -1,0 +1,42 @@
+/* Add your custom styles for the footer here */
+
+.footer {
+    background-color: #4CAF50; /* Light Green background color */
+    color: #fff;
+    padding: 10px 0;
+    font-size: 14px;
+    margin-top: 5px;
+}
+/* footer.component.css */
+
+.footer h4 {
+    color: #fff;
+    margin-bottom: 0px;
+    margin-left: 25px;
+}
+
+.footer p {
+    margin-bottom: 5px;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #fff;
+    font-size: 24px;
+/* background-color: #444; */
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #555;
+}
+
+.text-center {
+    text-align: center;
+}

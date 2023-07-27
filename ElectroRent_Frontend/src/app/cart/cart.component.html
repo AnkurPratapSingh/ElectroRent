@@ -17,7 +17,7 @@
     </div>
 
 </div>
-<div>
+<div class="buttonClass">
 <button class="btn-checkout" (click)="showPaymentModal = true">Checkout</button>
 </div>
   
@@ -41,6 +41,14 @@
           <div class="form-check">
             <input class="form-check-input" type="radio" name="paymentMethod" value="paypal" [(ngModel)]="paymentMethod">
             <label class="form-check-label">PayPal</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="paymentMethod" value="COD" [(ngModel)]="paymentMethod">
+            <label class="form-check-label">Cash On Delivery</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="paymentMethod" value="UPI" [(ngModel)]="paymentMethod">
+            <label class="form-check-label">UPI</label>
           </div>
           <!-- Add more payment method options if needed -->
         </div>

@@ -8,20 +8,21 @@ let path = require('path');
 var fs = require('fs');
 var uuid = require('uuid');
 const auth = require("../services/authentication");
-const { log } = require('console');
+const { log, Console } = require('console');
 
 
 router.post('/generateReport', (req,res)=>{
     const generateUuid = uuid.v1();
     const orderDetails = req.body;
-    console.log(orderDetails);
+    console.log("my orderDetails",orderDetails);
     var productDetailsReport = JSON.stringify(orderDetails.productDetails);
    var query = "insert into bill (name ,uuid,email,contactNumber,paymentMethod,total,productDetails,createdBy) values (?,?,?,?,?,?,?,?)" ;
    connection.query(query,[orderDetails.name,generateUuid,orderDetails.email,orderDetails.contactNumber,orderDetails.paymentMethod,orderDetails.totalAmount,productDetailsReport,orderDetails.email],(err,result)=>{
     if(!err){
-        ejs.renderFile(path.join(__dirname,"report.ejs"),{productDetails:productDetailsReport,name:orderDetails.name,email:orderDetails.email,contactNumber:orderDetails.contactNumber,paymentMethod:orderDetails.paymentMethod,totalAmount:orderDetails.totalAmount},(err,result)=>{
+        ejs.renderFile(path.join(__dirname,"report.ejs"),{productDetails:orderDetails.productDetails,name:orderDetails.name,email:orderDetails.email,contactNumber:orderDetails.contactNumber,paymentMethod:orderDetails.paymentMethod,totalAmount:orderDetails.totalAmount},(err,result)=>{
                     
             if(err){
+                 console.log(err);
                 console.log("Hi this is render");
                 return res.status(500).json(err);
 
@@ -126,6 +127,36 @@ router.delete('/delete/:billId',auth.authenticationToken,(req,res ,next)=>{
         }
      })
 
+})
+
+router.get('/orderHistory/:email',(req,res,next)=>{
+         const email = req.params.email;
+         console.log(email)
+         var orderValue=[];
+         var num=0;
+         const query = "select * from bill where email = ?;"
+         connection.query(query,[email],(err,result)=>{
+            if(!err){
+                console.log("OrderHistroy");
+                result.forEach((item) => {
+                    const products = JSON.parse(item.productDetails);
+                    products.forEach((data)=>{
+                       // console.log(data);
+                       //console.log(products,"Productsss")
+                        orderValue.push(data);
+                        num++;
+                         
+                    })
+                  //  console.log("wdehwiuehdi",products.length);
+                   // orderValue.push(item.productDetails);
+              console.log(num,"num value");
+            })
+              // console.log(orderValue);
+              return res.status(200).json(orderValue);
+             } else{
+                return res.status(500).json(err);
+            }
+         })
 })
 module.exports = router;
 

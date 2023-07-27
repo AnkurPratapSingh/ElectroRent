@@ -27,6 +27,7 @@ export class PdfViewerComponent {
       console.log("1233467899086543");
       
       console.log(this.orderDetails);
+      this.generatePDF();
   })}
 
 

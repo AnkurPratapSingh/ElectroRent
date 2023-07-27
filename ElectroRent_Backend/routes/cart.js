@@ -70,6 +70,7 @@ router.get('/getbyid/:id', async (req, res) => {
           resolve(result);
         });
       });
+      console.log(cartItems);
   
       const responseArray = [];
       for (const element of cartItems) {
@@ -82,6 +83,8 @@ router.get('/getbyid/:id', async (req, res) => {
             resolve(result[0]);
           });
         });
+
+        product.cartId = element.id;
   
         console.log(product);
         responseArray.push(product);
@@ -100,6 +103,7 @@ router.get('/getbyid/:id', async (req, res) => {
           var query = "delete from cart where id=?";
           connection.query(query,[id],(err,result)=>{
             if(!err){
+              console.log("Item Deleted");
               return res.status(200).json({"message":"Success your item has been removed"});
             }
             else{

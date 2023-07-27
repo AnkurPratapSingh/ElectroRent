@@ -3,6 +3,8 @@
     margin: 0 auto;
     padding: 20px;
     background-color: #ffffff;
+   align-items: center;
+   border-radius: 10px;
   }
   
   .cart-item {
@@ -91,4 +93,11 @@
     background-color: #45a049;
   }
   
+  .buttonClass{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 200px; Set a specific height for the container if needed */
+    /* background-color: #f0f0f0; Optional background color */
+  }
   

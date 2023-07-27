@@ -31,11 +31,24 @@ export class LoginComponent {
 
   onSubmit(): void {
     if(this.user.email == "" || this.user.password == ""){
-      Swal.fire("Error","Please fill all the fields");
+      Swal.fire({
+        title: 'Error',
+        text: "Please fill all the Fields ",
+        icon: 'warning',
+        confirmButtonColor: '#4caF50',
+        confirmButtonText: 'Ok'
+      });
+      
  }
 
  else if(!this.validateEmail(this.user.email)){
-  Swal.fire("Error","Please fill valid Email");
+  Swal.fire({
+  title: 'Error',
+  text: "Fill valid email",
+  icon: 'warning',
+  confirmButtonColor: '#4caF50',
+  confirmButtonText: 'Ok'
+})
  }
     // Handle login logic
     else{
@@ -50,7 +63,26 @@ export class LoginComponent {
           this.myauth.login();
 
           console.log(response);
-          this.router.navigate(['/']);
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'logged in successfully'
+          })
+          setTimeout(() => {
+            this.router.navigate(['/']);
+
+          }, 1000);
           // Handle success, e.g., redirect to another page
         },
         (error) => {

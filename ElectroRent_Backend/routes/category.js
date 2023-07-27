@@ -7,7 +7,7 @@ var checkRole = require('../services/checkRole')
 
 
 
-router.post('/add',auth.authenticationToken,checkRole.checkRole,(req,res,next)=>{
+router.post('/add',(req,res,next)=>{
      let category = req.body;
      query = "insert into category (name) values(?)";
      connection.query(query,[category.name],(err,result)=>{

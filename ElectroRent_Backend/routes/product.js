@@ -35,7 +35,7 @@ router.get('/get',auth.authenticationToken,(req,res,next)=>{
 
 router.get('/getByCategory/:id',(req,res,next)=>{
    const id = req.params.id;
-   var query = "select id ,name from product where categoryId = ? and status='true'"
+   var query = "select id ,name ,price from product where categoryId = ? and status='true'"
    connection.query(query,[id],(err,result)=>{
      if(!err){
         return res.status(200).json(result);

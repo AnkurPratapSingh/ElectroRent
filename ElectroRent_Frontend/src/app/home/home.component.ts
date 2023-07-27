@@ -16,6 +16,7 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
+  isPageReloaded = false;
 
   message:any
   authenticated:boolean = false;
@@ -50,18 +51,39 @@ export class HomeComponent implements OnInit{
   
 
   constructor(private http:HttpClient,  private router:Router,private myauth:MyauthService){}
+ num:number = 0
 
   
   ngOnInit():void{
     if(!this.myauth.isLoggedIn){
       this.router.navigate(['/login']);
     return;}
+    // if (!this.isPageReloaded) {
+    //   this.isPageReloaded = true;
+    //   window.location.reload();
+    // }
+    // const isPageLoaded = localStorage.getItem('isPageLoaded');
+    // console.log(isPageLoaded,"reloading");
+    
+    // if (isPageLoaded=="false") {
+    //   console.log("isreloadin");
+      
+    //   localStorage.setItem('isPageLoaded', 'true');
+    //   //window.location.reload();
+    //   setTimeout(() => {
+    //     location.reload();
+    //   }, 0);
+    // }
     console.log("it angualr")
     
       setInterval(() => {
         this.shuffleProducts();
       }, 500);
      
+  }
+  reload(){
+     window.location.reload();
+     this.num=1
   }
 }
 

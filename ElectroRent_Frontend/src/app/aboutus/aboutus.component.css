@@ -1,0 +1,52 @@
+.about-us {
+    padding: 50px 0;
+    background-color: #3CB371; /* Green color */
+    color: #ffffff; /* White color */
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .section-heading {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .section-description {
+    font-size: 18px;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  
+  .section-subheading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .section-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .section-outro {
+    font-size: 18px;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  
+  .section-closing {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  

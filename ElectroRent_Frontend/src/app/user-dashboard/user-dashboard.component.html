@@ -1,0 +1,33 @@
+<div class="user-dashboard">
+  <!-- User Detail Section -->
+  <div class="user-detail" *ngFor="let users of user">
+    <h2>User Details</h2>
+    <p><strong>Name:</strong> {{ users.name }}</p>
+    <p><strong>Email:</strong> {{ users.email }}</p>
+    <!-- Add more user details as needed -->
+  </div>
+
+  <!-- Order History Section -->
+  <div class="order-history">
+    <h2>Order History</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Order Name</th>
+          <th>Price</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orderHistory">
+          <td>{{order.name}}</td>
+          <td>{{ order.price}}</td>
+          
+        </tr>
+       
+      </tbody>
+    </table>
+    
+  </div>
+</div>
+ 
