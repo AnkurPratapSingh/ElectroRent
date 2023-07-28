@@ -30,7 +30,7 @@ export class CartComponent implements OnInit {
   userid: string = '';
   paymentMethod: string = '';
   showPaymentModal: boolean = false;
-  finalPrice:number=0;
+  isCartEmpty:boolean = false;
 
 
 
@@ -59,6 +59,8 @@ export class CartComponent implements OnInit {
       .subscribe(
         (response) => {
           this.cartItems = response;
+          if(this.cartItems.length == 0)
+            this.isCartEmpty = true;
           console.log(this.cartItems);
         },
         (error) => {

@@ -18,7 +18,9 @@
 
 </div>
 <div class="buttonClass">
-<button class="btn-checkout" (click)="showPaymentModal = true">Checkout</button>
+<button class="btn-checkout"  *ngIf = (!isCartEmpty) (click)="showPaymentModal = true">Checkout</button>
+<button class="btn-checkout"  *ngIf = (isCartEmpty) routerLink="/category/get">Categories</button>
+
 </div>
   
 
@@ -54,7 +56,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="showPaymentModal = false">Cancel</button>
-          <button type="button" class="btn btn-primary" (click)="onSelectPayment(paymentMethod)">Next</button>
+          <button type="button" class="btn btn-primary" style="background-color: #45a049;" (click)="onSelectPayment(paymentMethod)">Next</button>
         </div>
       </div>
     </div>

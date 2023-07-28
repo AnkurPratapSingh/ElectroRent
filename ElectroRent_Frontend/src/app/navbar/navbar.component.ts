@@ -3,6 +3,7 @@ import { Component ,OnChanges,OnInit, SimpleChanges} from '@angular/core';
 import { Emitters } from '../emitters/emitters';
 import { MyauthService } from '../myauth.service';
 import { SharedService } from '../services/shared.services';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -58,6 +59,22 @@ export class NavbarComponent {
   logout():void{
      this.http.post('http://localhost:8080/user/logout',{},{withCredentials:true})
      .subscribe(()=>this.authenticated=false);
+     const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title: 'logged out successfully'
+    })
      this.myauth.logout();
   }
 }

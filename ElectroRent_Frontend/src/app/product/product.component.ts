@@ -11,6 +11,7 @@ interface Product {
   name: string;
   description: string;
   price: number;
+  imageUrl:string
 }
 
 @Component({
@@ -26,6 +27,8 @@ export class ProductComponent implements OnInit {
     id: 0,
   };
   authenticated: any;
+  isUpdating: boolean;
+  catId :number;
 
   constructor(
     private myauth: MyauthService,
@@ -63,6 +66,7 @@ export class ProductComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const categoryId = +params['id'];
       this.formData.id = categoryId;
+      this.catId = categoryId;
       // Fetch the category data based on the categoryId (Replace with your actual API call)
       this.http
         .get<Product[]>(
@@ -120,6 +124,13 @@ export class ProductComponent implements OnInit {
         (response) => {
           this.ngxServices.stop();
           Swal.fire('Success', 'Product added to cart');
+          Swal.fire({
+            title: 'Success',
+            text: "Product Added to cart",
+            icon: 'success',
+            confirmButtonColor: '#4caF50',
+            confirmButtonText: 'Ok'
+          })
 
           console.log(response);
         },
@@ -137,6 +148,27 @@ export class ProductComponent implements OnInit {
     this.isPopupFormVisible = false;
   }
   onSubmit() {
+
+
+
+    if(this.isUpdating)
+    {
+      this.http
+    .patch(`http://localhost:8080/product/update`,this.formData)
+    .subscribe(
+      (response) => {
+        console.log('Addes the categoryyyyyy');
+        this.fetchCategoryById(this.formData.categoryId);
+        this.formData = { id: this.catId };
+        this.closePopupForm();
+
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    }
+    else{
     this.http
       .post('http://localhost:8080/product/add', this.formData)
       .subscribe(
@@ -153,6 +185,7 @@ export class ProductComponent implements OnInit {
         }
       );
   }
+}
 
   deleteProduct(id:number){
      
@@ -170,4 +203,19 @@ export class ProductComponent implements OnInit {
     );
 
   }
+  updateProduct(data:Product){
+    this.formData.name = data.name;
+    this.formData.description = data.description;
+    this.formData.imageUrl = data.imageUrl;
+    this.formData.price = data.price;
+    this.formData.id=data.id;
+    this.formData.categoryId=this.catId;
+
+    this.isPopupFormVisible = true;
+     this.isUpdating =true;
+    
+    this.openPopupForm();
+  }
+
+  
 }

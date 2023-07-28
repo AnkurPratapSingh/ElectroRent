@@ -17,6 +17,8 @@ import { Route, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit{
   isPageReloaded = false;
+  currentDate: Date = new Date();
+
 
   message:any
   authenticated:boolean = false;
@@ -58,6 +60,8 @@ export class HomeComponent implements OnInit{
     if(!this.myauth.isLoggedIn){
       this.router.navigate(['/login']);
     return;}
+ console.log(this.currentDate, "Aaj ki date");
+ 
     // if (!this.isPageReloaded) {
     //   this.isPageReloaded = true;
     //   window.location.reload();

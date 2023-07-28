@@ -26,6 +26,7 @@ export class SignupComponent {
     password: ''
   };
   responseMessage: any;
+  showRules: boolean = true;
 
   constructor(private http: HttpClient, private router:Router,private ngxServices:NgxUiLoaderService ) {}
 
@@ -50,20 +51,61 @@ export class SignupComponent {
 
   }
 
+  validatePassWord(pass:any){
+  //  var validRegex = "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+    const validRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+  if(pass.match(validRegex))
+   return true;
+   else
+   return false;
+
+  }
   onSubmit(): void {
    // console.log(this.user);
    console.log(this.user);
    if(this.user.name == "" || this.user.email == "" || this.user.contactNumber == "" || this.user.password == ""){
-        Swal.fire("Error","Please fill all the fields");
+        Swal.fire({
+          title: 'Error',
+          text: "Please fill all the fields",
+          icon: 'warning',
+          confirmButtonColor: '#4caF50',
+          confirmButtonText: 'Ok'
+        })
    }
 
    else if(!this.validateEmail(this.user.email)){
-    Swal.fire("Error","Please fill valid Email");
+    Swal.fire({
+      title: 'Error',
+      text: "Fill valid email",
+      icon: 'warning',
+      confirmButtonColor: '#4caF50',
+      confirmButtonText: 'Ok'
+    })
 
    }
    else if(!this.validateNumber(this.user.contactNumber))
    {
     Swal.fire("Error","Enter a valid 10 digit number")
+    Swal.fire({
+      title: 'Error',
+      text: "Fill valid Contact with 10 digit",
+      icon: 'warning',
+      confirmButtonColor: '#4caF50',
+      confirmButtonText: 'Ok'
+    })
+   }
+   else if(!this.validatePassWord(this.user.password)){
+    Swal.fire("Error","Enter a valid Password")
+    Swal.fire({
+      title: 'Error',
+      text: "Fill valid Password",
+      icon: 'warning',
+      confirmButtonColor: '#4caF50',
+      confirmButtonText: 'Ok'
+    })
+
+
    }
    else{
    this.ngxServices.start();
@@ -90,4 +132,17 @@ export class SignupComponent {
       );
   }
 }
+showPasswordRules() {
+  this.showRules = true;
+  //Swal.fire("","Be at least 8 characters long <br> Contain at least one uppercase letter (A-Z) or one lowercase letter (a-z)<br> Contain at least one digit (0-9)<br> Contain at least one special character from the set @$!%*#?&</l");
+  Swal.fire({
+    title: 'Error',
+    html: "At least 8 characters long <br>At least one uppercase letter(A-Z) <br>At least one lowercase letter(a-z)<br> Contain at least one digit (0-9)<br> Contain at least one special character from the set @$!%*#?&</l",
+    icon: 'warning',
+    confirmButtonColor: '#4caF50',
+    confirmButtonText: 'Ok'
+  })
+}
+
+
 }

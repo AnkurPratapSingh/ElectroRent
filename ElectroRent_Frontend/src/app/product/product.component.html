@@ -22,9 +22,14 @@
         <input type="number" id="price" name="price" required [(ngModel)]="formData.price">
       </div>
       <div class="form-group">
+        <label for="imageUrl">Image url:</label>
+        <input type="text" id="imageUrl" name="imageUrl" required [(ngModel)]="formData.imageUrl">
+      </div>
+      <div class="form-group">
         <label for="description">Description:</label>
         <textarea id="description" name="description" required [(ngModel)]="formData.description"></textarea>
       </div>
+      
       <button type="submit" style="margin-right: 5px;">Add</button>
       <button type="button" (click)="closePopupForm()">Cancel</button>
     </form>
@@ -34,15 +39,18 @@
  
     <div class="product-card" *ngFor="let product of products">
       <div class="product-image">
-        <!-- Replace 'product.imageUrl' with the actual URL of the product image -->
-        <img src="product.imageUrl" alt="Product Image">
+        <img src={{product.imageUrl}} alt="Product Image">
       </div>
       <div class="product-details">
         <h3>{{ product.name }}</h3>
+        <p class="price">Price: {{ product.price }} per month</p>
         <p class="description">{{ product.description }}</p>
-        <p class="price">Price: {{ product.price }}</p>
-        <button *ngIf = '!admin' (click)="rentIt(product.id)" >Rent it Now</button>
+
+
+        <button *ngIf = '!admin' (click)="rentIt(product.id)" >Add to Cart</button>
         <button *ngIf = 'admin' (click)="deleteProduct(product.id)">Delete</button>
+        <button *ngIf = 'admin' (click)="updateProduct(product)" style="margin-left: 5px;">Update</button>
+
 
 
       </div>

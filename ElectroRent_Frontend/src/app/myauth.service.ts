@@ -78,9 +78,9 @@ export class MyauthService {
           console.log(res);
          
           
-          localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("user", res.id);
-          localStorage.setItem("role",res.role);
+         // localStorage.setItem("isLoggedIn", "true");
+          //localStorage.setItem("user", res.id);
+          //localStorage.setItem("role",res.role);
           
           this.user = parseInt(localStorage.getItem("user") || '0');
           // console.log("user type");
@@ -104,6 +104,7 @@ export class MyauthService {
     localStorage.setItem("user", "0");
    // localStorage.setItem("role","");
     localStorage.setItem("isPageLoaded","false")
+    localStorage.removeItem('token');
   }
 
   getUserStatus(){
