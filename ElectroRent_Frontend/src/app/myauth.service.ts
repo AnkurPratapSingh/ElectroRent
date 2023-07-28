@@ -117,7 +117,16 @@ export class MyauthService {
 
  }
   getUserId(){
-   return this.user = parseInt(localStorage.getItem("user") || '0');
+    const token = this.getToken();
+    console.log(token);
+    
+       if (token) {
+         const decodedToken = this.jwtHelper.decodeToken(token);
+         console.log("role of the user",decodedToken)
+         return decodedToken.id; // Assuming the role information is stored in the 'role' claim of the JWT
+       }
+   
+       return '';
   }
   getUserRole(){
     return this.checkUserRole()==="admin";

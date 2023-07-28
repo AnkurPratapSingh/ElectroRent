@@ -14,6 +14,7 @@ export class UserDashboardComponent implements OnInit {
    user:any;
    orderHistory:any;
    userId:number=0
+  admin: boolean;
 
    constructor(
     private http: HttpClient,
@@ -27,6 +28,9 @@ export class UserDashboardComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
+    this.myauth.isAdmin.subscribe((isAdmin)=>{
+      this.admin = isAdmin
+ })
     this.userId = this.myauth.getUserId();
     this.http
     .get(`http://localhost:8080/user/getUserbyid/${this.userId}`)
