@@ -114,7 +114,7 @@ export class ProductComponent implements OnInit {
 
   rentIt(Id: number) {
     //  this.router.navigate([`rentnow/${Id}`]);
-    const data = { userid: this.myauth.user, productid: Id };
+    const data = { userid: this.myauth.getUserId(), productid: Id };
 
     this.http
       .post('http://localhost:8080/add/addtocart', data, {

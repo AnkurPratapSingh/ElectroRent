@@ -23,6 +23,7 @@ import { SharedService } from './services/shared.services';
 import { FooterComponent } from './footer/footer.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 
 
@@ -57,6 +58,7 @@ const NgxUiLoaderConfig: NgxUiLoaderConfig ={
     FooterComponent,
     AboutusComponent,
     UserDashboardComponent,
+    UserListComponent,
     
   ],
   imports: [

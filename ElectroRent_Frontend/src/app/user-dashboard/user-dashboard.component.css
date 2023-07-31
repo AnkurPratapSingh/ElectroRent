@@ -50,4 +50,39 @@
     left: 0;
     width: 100%;
   }
-  
+  /* Your component styles (CSS) */
+.categories,
+.products,.users {
+  width: 250px;
+  height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+}
+
+.categories h2,
+.products h2 , .users h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.categories p,
+.products p  , .users p{
+  font-size: 24px;
+  font-weight: bold;
+}
+.card-admin{
+  display: flex;
+
+}
+
+.changePointer{
+  cursor:pointer;
+}

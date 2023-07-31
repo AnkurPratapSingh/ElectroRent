@@ -27,7 +27,7 @@
           <h3>{{ product.name }}</h3>
           <!-- <p class="description">{{ product.description }}</p>
           <p class="price"> {{ product.price | currency }}</p> -->
-          <button class="go-to-category-btn" (click)="goToCategory(product.id)">Go to Category</button>
+          <button class="go-to-category-btn" (click)="goToCategory(product.id)">Products</button>
           <button class="go-to-category-btn"  *ngIf="admin"  (click)="deleteCategory(product.id)">Delete</button>
 
         </div>

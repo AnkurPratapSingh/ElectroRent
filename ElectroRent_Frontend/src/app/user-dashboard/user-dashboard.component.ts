@@ -15,6 +15,7 @@ export class UserDashboardComponent implements OnInit {
    orderHistory:any;
    userId:number=0
   admin: boolean;
+  details:any
 
    constructor(
     private http: HttpClient,
@@ -39,7 +40,6 @@ export class UserDashboardComponent implements OnInit {
         console.log("respomse",response);
         
         this.user = response;
-        console.log(this.user.email);
         this.http
         .get(`http://localhost:8080/bill/orderHistory/${this.user[0].email}`)
         .subscribe(
@@ -57,17 +57,17 @@ export class UserDashboardComponent implements OnInit {
       }
     );
 
-    // this.http
-    // .get(`http://localhost:8080/bill/orderHistory/${this.user.email}`)
-    // .subscribe(
-    //   (response) => {
-    //     this.orderHistory = response;
-    //     console.log(this.orderHistory);
-    //   },
-    //   (error) => {
-    //     console.error(error);
-    //   }
-    // );
+    this.http
+    .get("http://localhost:8080/dashboard/details")
+    .subscribe(
+      (response) => {
+        this.details = response;
+        //console.log(this.orderHistory);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   
 
 }

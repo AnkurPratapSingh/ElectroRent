@@ -31,5 +31,23 @@
     
   </div>
   </div>
+  <div *ngIf = "admin" class="card-admin">
+    <!-- Your component template (HTML) -->
+<div class="categories changePointer" routerLink="/category/get" >
+  <h2>Number of Categories</h2>
+  <p>{{ details.category}}</p>
+</div>
+
+<div class="products changePointer" routerLink="/category/get">
+  <h2>Number of Products</h2>
+  <p>{{ details.product }}</p>
+</div>
+
+<div class="users changePointer" routerLink = "/allUsers">
+  <h2>Number of Users</h2>
+  <p>{{ details.user}}</p>
+</div>
+
+  </div>
 </div>
  

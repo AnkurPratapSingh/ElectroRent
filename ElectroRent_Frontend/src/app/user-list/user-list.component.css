@@ -1,0 +1,39 @@
+/* user-list.component.css */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #45a049;
+  }
+  
+  /* tr:nth-child(even) {
+    background-color: #f2f2f2;
+  } */
+  
+  tr:hover {
+    background-color: #ddd;
+  }
+  
+  button {
+    background-color:  #45a049;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #c82333;
+  }
+  

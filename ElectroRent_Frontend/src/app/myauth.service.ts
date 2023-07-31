@@ -123,6 +123,8 @@ export class MyauthService {
        if (token) {
          const decodedToken = this.jwtHelper.decodeToken(token);
          console.log("role of the user",decodedToken)
+         console.log(decodedToken.id);
+         
          return decodedToken.id; // Assuming the role information is stored in the 'role' claim of the JWT
        }
    

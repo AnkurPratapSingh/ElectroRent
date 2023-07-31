@@ -8,12 +8,12 @@ require("dotenv").config();
 var auth = require("../services/authentication");
 var checkRole = require("../services/checkRole");
 
-router.post("/signup", (req, res) => {
+router.post("/signup", async (req, res) => {
   let user = req.body;
   //  console.log(user);
 
   query = "select email,password,role,status from user where email=?";
-  connection.query(query, [user.email], (err, result) => {
+  await connection.query(query, [user.email], (err, result) => {
     if (!err) {
       if (result.length <= 0) {
         query =
@@ -23,21 +23,14 @@ router.post("/signup", (req, res) => {
           [user.name, user.contactNumber, user.email, user.password],
           (err, result) => {
             if (!err) {
-              console.log("great");
-              const id = result.insertId;
-              const token = jwt.sign(
-                { email: result[0].email, id: result[0].id, role: result[0].role },
-                process.env.ACCESS_TOKEN
-              );
+              
               // res.cookie("jwt",token1,{
               //     httpOnly:true,
               //     maxAge:24*60*60*1000
               // })
               //  const token = jwt.sign(process.env.ACCESS_TOKEN, process.env.ACCESS_TOKEN);
-      
-              return res.json({ token });
-      
-            
+
+             return res.status(200).json({message:'Registerd the user'})
             } else {
               return res.status(500).json(err);
             }
@@ -52,11 +45,11 @@ router.post("/signup", (req, res) => {
   });
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const user = req.body;
   console.log(user);
   query = "select id ,email,password,role,status from user where email=?";
-  connection.query(query, [user.email], (err, result) => {
+  await connection.query(query, [user.email], (err, result) => {
     console.log(result);
     const userData = result[0];
     if (!err) {
@@ -105,11 +98,24 @@ var transporter = nodeMailer.createTransport({
   },
 });
 
-router.post("/forgotPassword", (req, res) => {
+router.delete("/deleteUser/:id",async (req,res)=>{
+  const id = req.params.id;
+  console.log(id);
+  query = "delete from user where id = ? ";
+  await connection.query(query , [id] , (err,result)=>{
+    if(!err){
+      return res.status(200).json({messge:"Successfully Deleted the  user"});
+    }
+    else{
+      return res.status(500).json(err);
+    }
+  })
+})
+router.post("/forgotPassword", async (req, res) => {
   console.log(process.env.EMAIL);
   const user = req.body;
   query = "select email,password,role,status from user where email=?";
-  connection.query(query, [user.email], (err, result) => {
+  await connection.query(query, [user.email], (err, result) => {
     if (!err) {
       if (result.length <= 0) {
         return res
@@ -144,24 +150,19 @@ router.post("/forgotPassword", (req, res) => {
   });
 });
 
-router.get(
-  "/get",
-  auth.authenticationToken,
-  checkRole.checkRole,
-  (req, res) => {
-    // const user = req.body;
-    query = "select email,password,role,status from user where role='user';";
-    connection.query(query, (err, result) => {
-      if (!err) {
-        return res.status(200).json(result);
-      } else {
-        return res.status(500).json(err);
-      }
-    });
-  }
-);
+router.get("/get", async (req, res) => {
+  // const user = req.body;
+  query = "select name ,id ,email,role,status from user where role='user';";
+  await connection.query(query, (err, result) => {
+    if (!err) {
+      return res.status(200).json(result);
+    } else {
+      return res.status(500).json(err);
+    }
+  });
+});
 
-router.get("/check", (req, res) => {
+router.get("/check", async (req, res) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", ""); // Get the JWT from the 'Authorization' header
     console.log(token);
@@ -174,7 +175,7 @@ router.get("/check", (req, res) => {
     if (!claims) return res.status(401).json({ message: "unauthenticated" });
 
     var query = "select * from user where id = ?";
-    connection.query(query, [userId], (err, result) => {
+    await connection.query(query, [userId], (err, result) => {
       const userData = result[0];
       //delete userData.password
       // console.log(1234);
@@ -195,13 +196,11 @@ router.get("/check", (req, res) => {
   // return 0;
 });
 
-
-
-router.post("/changePassword", auth.authenticationToken, (req, res) => {
+router.post("/changePassword", async (req, res) => {
   const user = req.body;
   const email = res.locals.email;
   var query = "select * from user where email = ? and password=?";
-  connection.query(query, [email, user.oldPassword], (err, result) => {
+  await connection.query(query, [email, user.oldPassword], (err, result) => {
     if (!err) {
       if (result.length <= 0) {
         return res.status(400).json({ message: "Incorect old password" });
@@ -225,14 +224,16 @@ router.post("/changePassword", auth.authenticationToken, (req, res) => {
   });
 });
 
-router.get("/getUserById/:id", (req, res) => {
+router.get("/getUserById/:id", async (req, res) => {
   const id = req.params.id;
   query = "select name,email,contactNumber from user where id=?";
-  connection.query(query, [id], (err, result) => {
+  await connection.query(query, [id], (err, result) => {
     if (!err) return res.status(200).json(result);
     else {
       return res.status(500).json(err);
     }
   });
 });
+
+
 module.exports = router;

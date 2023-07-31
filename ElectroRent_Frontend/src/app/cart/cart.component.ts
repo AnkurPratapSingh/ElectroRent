@@ -49,8 +49,8 @@ export class CartComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    this.myauth.getUserId();
-    this.userid = this.myauth.user;
+    this.userid = this.myauth.getUserId();
+    //this.userid = this.myauth.user;
     console.log(this.userid);
  
 
@@ -58,6 +58,8 @@ export class CartComponent implements OnInit {
       .get<CartItem[]>(`http://localhost:8080/add/getbyid/${this.userid}`)
       .subscribe(
         (response) => {
+          console.log(this.userid);
+          
           this.cartItems = response;
           if(this.cartItems.length == 0)
             this.isCartEmpty = true;
@@ -105,8 +107,12 @@ export class CartComponent implements OnInit {
       ,createdBy:'Ankur',
       userid:this.userid
     };
+    console.log(this.userid);
+    
     this.http.get<userData[]>(`http://localhost:8080/user/getUserById/${this.userid}`).subscribe(
       (response) => {
+        console.log(response);
+        
        orderDetails.name=response[0].name;
        orderDetails.email=response[0].email;
        orderDetails.contactNumber= response[0].contactNumber;

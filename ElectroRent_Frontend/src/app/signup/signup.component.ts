@@ -63,7 +63,7 @@ export class SignupComponent {
   }
   onSubmit(): void {
    // console.log(this.user);
-   console.log(this.user);
+  // console.log(this.user);
    if(this.user.name == "" || this.user.email == "" || this.user.contactNumber == "" || this.user.password == ""){
         Swal.fire({
           title: 'Error',
@@ -118,7 +118,7 @@ export class SignupComponent {
 
           console.log(response);
           
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
           // Handle success, e.g., redirect to another page
         },
         (error) => {
